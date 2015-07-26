@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start: 2015-07-26 12:38:02
+  end: 2015-07-26 12:38:02
+  project_id: 
+
+two:
+  start: 2015-07-26 12:38:02
+  end: 2015-07-26 12:38:02
+  project_id: 

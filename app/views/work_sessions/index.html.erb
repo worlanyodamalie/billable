@@ -1,0 +1,31 @@
+<h1>Listing work_sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th>Project</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @work_sessions.each do |work_session| %>
+      <tr>
+        <td><%= work_session.start %></td>
+        <td><%= work_session.end %></td>
+        <td><%= work_session.project %></td>
+        <td><%= link_to 'Show', work_session %></td>
+        <td><%= link_to 'Edit', edit_work_session_path(work_session) %></td>
+        <td><%= link_to 'Destroy', work_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Work session', new_work_session_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @work_session.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @work_session.end %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @work_session.project %>
+</p>
+
+<%= link_to 'Edit', edit_work_session_path(@work_session) %> |
+<%= link_to 'Back', work_sessions_path %>

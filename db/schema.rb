@@ -11,9 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726100112) do
+ActiveRecord::Schema.define(version: 20150726103802) do
+
+  create_table "clients", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "clients", ["user_id"], name: "index_clients_on_user_id"
+
+  create_table "projects", force: true do |t|
+    t.integer  "client_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "projects", ["client_id"], name: "index_projects_on_client_id"
 
 # Could not dump table "users" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
+
+  create_table "work_sessions", force: true do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "work_sessions", ["project_id"], name: "index_work_sessions_on_project_id"
 
 end
