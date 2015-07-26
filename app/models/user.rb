@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 	belongs_to :user_level
 
 	validates :username, :email, presence: true, uniqueness: true
+	validates :user_level, presence: true
 	validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 	has_secure_password
 

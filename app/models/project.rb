@@ -7,20 +7,20 @@ class Project < ActiveRecord::Base
 
   public
 
-  	def spent_seconds
-  		return self.work_sessions.map(&:duration).inject(:+).to_f
+  	def spent_seconds(filter=nil)
+  		return self.work_sessions.where(filter).map(&:duration).inject(:+).to_f
   	end
 
-  	def spent_minutes
-  		return (self.spent_seconds / 60.0).to_f
+  	def spent_minutes(filter=nil)
+  		return (self.spent_seconds(filter) / 60.0).to_f
   	end
 
-  	def spent_hours
-  		return (self.spent_minutes / 60.0).to_f
+  	def spent_hours(filter=nil)
+  		return (self.spent_minutes(filter) / 60.0).to_f
   	end
 
-  	def spent_time
-  		t = Time.gm(2000,1,1) + self.spent_seconds
+  	def spent_time(filter=nil)
+  		t = Time.gm(2000,1,1) + self.spent_seconds(filter)
   		return t
   	end
 

@@ -4,4 +4,5 @@ class Client < ActiveRecord::Base
   has_many :work_sessions, :through => :projects
 
   validates :name, :user, presence: true
+
 end
