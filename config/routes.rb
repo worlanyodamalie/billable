@@ -1,4 +1,6 @@
 Billable::Application.routes.draw do
+  resources :user_levels
+
   get 'admin' => 'admin#index'
   controller :user_session do
     get     'login'   => :new

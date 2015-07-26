@@ -39,15 +39,26 @@
 					<% end %>
 				</div>
 				<% if session[:user_id] %>
-				<ul class="nav navbar-nav navbar-right">
-					<li><%= link_to "Manage Users", users_url %></li>
-				</ul>
+				<p class="navbar-text navbar-right"><strong>Logged in as</strong>&nbsp;<%= session[:user_name] %></p>
+					<% if User.find_by(id: session[:user_id]).user_level.is_admin %>
+					<ul class="nav navbar-nav navbar-right">
+						<li><%= link_to "Manage Users", users_url %></li>
+					</ul>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
 	</nav>
 
 	<div class="container">
+
+		<% if flash[:alert] %>
+			<div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
+		<% end %>
+		<% if flash[:notice] %>
+			<div class="alert alert-info" role="alert"><%= flash[:notice] %></div>
+		<% end %>
+
 		<%= yield %>
 	</div>
 
