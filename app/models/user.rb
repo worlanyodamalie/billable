@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
 	has_many :clients, dependent: :destroy
+	has_many :projects, :through => :clients
+	has_many :work_sessions, :through => :projects
 	belongs_to :user_level
 
 	validates :username, :email, presence: true, uniqueness: true
@@ -8,6 +10,12 @@ class User < ActiveRecord::Base
 	has_secure_password
 
 	after_destroy :ensure_an_user_remains
+
+	public
+
+		def all_projects_of_user
+			return self.projects
+		end
 
 	private
 

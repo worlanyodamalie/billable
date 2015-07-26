@@ -47,3 +47,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Use Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'autoprefixer-rails'
+
+# Use Validates Timeliness
+gem 'validates_timeliness', '~> 3.0'

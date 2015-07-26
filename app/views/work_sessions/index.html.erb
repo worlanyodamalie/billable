@@ -1,10 +1,11 @@
 <h1>Listing work_sessions</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Start</th>
       <th>End</th>
+      <th><span class="text-muted">Duration</span></th>
       <th>Project</th>
       <th></th>
       <th></th>
@@ -17,6 +18,7 @@
       <tr>
         <td><%= work_session.start %></td>
         <td><%= work_session.end %></td>
+        <td><span class="text-muted"><%= distance_of_time_in_words(work_session.start, work_session.end) %></span></td>
         <td><%= work_session.project %></td>
         <td><%= link_to 'Show', work_session %></td>
         <td><%= link_to 'Edit', edit_work_session_path(work_session) %></td>
