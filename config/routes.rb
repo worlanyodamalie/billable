@@ -1,17 +1,26 @@
 Billable::Application.routes.draw do
+  get 'admin' => 'admin#index'
+  controller :user_session do
+    get     'login'   => :new
+    post    'login'   => :create
+    delete  'logout'  => :destroy
+  end
+
+  get "user_session/create"
+  get "user_session/destroy"
+
   resources :work_sessions
-
   resources :projects
-
   resources :clients
-
   resources :users
+
+  get "dashboard/index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'dashboard#index', as: 'dashboard'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
