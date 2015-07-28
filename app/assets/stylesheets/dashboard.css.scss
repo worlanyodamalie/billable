@@ -1,3 +1,119 @@
 // Place all the styles related to the Dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$number-of-days: 7;
+$min-width: 320px;
+$column-width: percentage(1/$number-of-days);
+
+.week-row:before {
+	display: table;
+	content: " ";
+}
+
+.week-container {
+	min-width: $min-width;
+}
+
+.week-row {
+	margin: 0;
+}
+
+.week-day-header, .week-day {
+	display: inline-block;
+	float: left;
+	min-height: 1px;
+	padding: 0 3px;
+	position: relative;
+	width: $column-width;
+}
+
+.week-day-header {
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 1px solid #C3435C;
+	padding-bottom: 4px;
+	margin-bottom: 8px;
+
+	.week-day-date {
+		display: block;
+		font-size: 0.8em;
+		font-weight: lighter;
+		text-align: center;
+		color: #e1e1e1;
+	}
+}
+
+$number-of-hours: 12;
+$start-of-day: 8;
+$end-of-day: $start-of-day + $number-of-hours;
+$height-per-hour: 20px;
+
+.week-day {
+	min-height: ($number-of-hours * $height-per-hour);
+
+	.week-day-session {
+		background: #157999;
+		color: #fff;
+		border-radius: 3px;
+		display: block;
+		position: relative;
+		font-size: 0.7em;
+
+		padding: 3px;
+		overflow: hidden;
+
+		span {
+			display: block;
+		}
+		.week-session-activity {
+			font-weight: bold;
+			padding-bottom: 1px;
+			margin-bottom: 2px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+
+			.week-session-details {
+				float: right;
+				font-style: italic;
+				margin: 0 3px;
+				font-family: serif;
+
+				a {
+					&, &:link, &:visited {
+						color: #fff;
+						text-decoration: none;
+					}
+					&:active, &:hover {
+						color: #aaf;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		.week-session-client {
+			display: inline-block;
+			font-weight: bold;
+			font-size: 0.8em;
+
+			&:after {
+			}
+		}
+		.week-session-project {
+			display: inline-block;
+			font-size: 0.8em;
+		}
+		.week-session-duration {
+			color: rgba(255, 255, 255, 0.7);
+			width: 100%;
+			text-align: right;
+			font-size: 0.8em;
+		}
+	}
+
+	@for $i from $start-of-day through $end-of-day {
+		.week-session-start-#{$i} { margin-top: (($i - $start-of-day)*$height-per-hour); }
+	}
+	@for $i from 1 through $number-of-hours {
+		.week-session-length-#{i} { height: $i * $height-per-hour; }
+	}
+
+}
