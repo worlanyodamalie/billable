@@ -21,6 +21,10 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def to_str
+    return self.username
+  end
+
   # POST /users
   # POST /users.json
   def create

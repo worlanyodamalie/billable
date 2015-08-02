@@ -1,22 +1,30 @@
-<div class="week-container">
-	<div class="row week-row week-header">
-		<% @week_days.each do |day, date| %>
-			<div class="col-xs-1 week-day-header <% if (date == Time.now.beginning_of_day) %>week-day-today<% end %>"><%= day %><span class="week-day-date"><%= date.strftime("%d.%m.%Y") %></span></div>
-		<% end %>
-	</div>
+<div class="row">
+	<div class="col-sm-4 text-left"><%= link_to '« Previous Week', week_path(year: navigation[:previous_year], week: navigation[:previous_week]), remote: true, class: 'btn btn-primary btn-sm' %></div>
+	<div class="col-sm-4 text-center"><%= link_to 'Today', week_path(year: navigation[:today_year], week: navigation[:today_week]), remote: true, class: 'btn btn-default btn-sm' %></div>
+	<div class="col-sm-4 text-right"><%= link_to 'Next Week »', week_path(year: navigation[:next_year], week: navigation[:next_week]), remote: true, class: 'btn btn-primary btn-sm' %></div>
+</div>
+<div class="row">
+	<div class="col-sm-12 week-container">
 
-	<div class="row week-row">
-		<% @week_days.each do |day, date| %>
-			<div class="col-xs-1 week-day">
-				<% @week_data.where("start >= ? AND start <= ?", date.beginning_of_day, date.end_of_day).each do |w| %>
-					<div class="week-day-session week-session-start-<%= w.start.hour %> week-session-length-<%= (w.duration/60/60).ceil %>">
-						<span class="week-session-activity"><%= w.activity %> <%= link_to "i", work_session_path(w), class: "week-session-details" %></span>
-						<span class="week-session-client"><%= w.project.client.name %></span>
-						<span class="week-session-project"><%= w.project.name %></span>
-						<span class="week-session-duration"><%= distance_of_time_in_words(w.duration) %></span>
-					</div>
-				<% end %>
-			</div>
-		<% end %>
+		<div class="row week-row week-header">
+			<% week_days.each do |day, date| %>
+				<div class="col-xs-1 week-day-header <% if (date == Time.now.beginning_of_day) %>week-day-today<% end %>"><%= day %><span class="week-day-date"><%= date.strftime("%d.%m.%Y") %></span></div>
+			<% end %>
+		</div>
+
+		<div class="row week-row">
+			<% week_days.each do |day, date| %>
+				<div class="col-xs-1 week-day">
+					<% week_data.where("start >= ? AND start <= ?", date.beginning_of_day, date.end_of_day).each do |w| %>
+						<div class="week-day-session week-session-start-<%= w.start.hour %> week-session-length-<%= (w.duration/60/60).ceil %>" style="border-color: <%= w.project.color %>">
+							<span class="week-session-activity" style="border-color: <%= w.project.color %>;"><%= w.activity %> <%= link_to "i", work_session_path(w), class: "week-session-details" %></span>
+							<span class="week-session-client"><%= w.project.client.name %></span>
+							<span class="week-session-project"><%= w.project.name %></span>
+							<span class="week-session-duration"><%= distance_of_time_in_words(w.duration) %></span>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
 	</div>
 </div>

@@ -14,8 +14,8 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.client %></td>
-        <td><%= project.name %></td>
+        <td><%= project.client.name %></td>
+        <td><span style="color: <%= project.color %>;"><%= project.name %></span></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>

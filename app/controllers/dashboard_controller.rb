@@ -3,33 +3,26 @@ class DashboardController < ApplicationController
 	def index
 		@clients = Client.where(:user => User.find_by(:id => session[:user_id]))
 
-		this_monday = Time.current.beginning_of_week(:monday)
-		day_names = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
-		@week_days = Hash.new()
+		
 		@week_data = User.find_by(:id => session[:user_id]).all_worksessions_of_user
-		for i in 0..6
-			@week_days[day_names[i]] = this_monday + i.day
-		end
-
-		@week_previous_year = (this_monday - 1.week).year
-		@week_previous = ((this_monday - 1.week).strftime("%W").to_i + 1)
-		@week_today_year = Time.current.year
-		@week_today = (Time.current.strftime("%W").to_i + 1)
-		@week_next_year = (this_monday + 1.week).year
-		@week_next = ((this_monday + 1.week).strftime("%W").to_i + 1)
+		@week_days = generate_week_days
+		@initial_navigation_data = { :today_year => Time.current.year, :today_week => Time.current.cweek,
+			:previous_year => (Time.current - 1.week).year, :previous_week => (Time.current - 1.week).cweek,
+			:next_year => (Time.current + 1.week).year, :next_week => (Time.current + 1.week).cweek }
 	end
 
 	def week
-		day_names = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
 		week = params[:week].to_i
 		year = params[:year].to_i
-		puts week
-		the_monday = Date.commercial(year, week, 1)
-		@week_days = Hash.new()
-		for i in 0..6
-			@week_days[day_names[i]] = the_monday + i.day
-		end
+		the_monday = Date.commercial(year, week, 1).beginning_of_week
+		@week_days = generate_week_days(the_monday)
 		@week_data = User.find_by(:id => session[:user_id]).all_worksessions_of_user
+
+		@navigation_data = {
+			:today_year => Time.current.year, :today_week => Time.current.cweek,
+			:previous_year => (the_monday - 1.week).year, :previous_week => (the_monday - 1.week).cweek,
+			:next_year => (the_monday + 1.week).year, :next_week => (the_monday + 1.week).cweek
+		}
 
 		respond_to do |format|
 			format.js
@@ -39,5 +32,16 @@ class DashboardController < ApplicationController
     def dashboard_params
       params.permit(:week)
     end
+
+    private
+
+    	def generate_week_days(monday=Time.current.beginning_of_week(:monday))
+			day_names = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
+			temp = Hash.new
+			for i in 0..6
+				temp[day_names[i]] = monday + i.day
+			end
+			return temp
+    	end
 
 end
