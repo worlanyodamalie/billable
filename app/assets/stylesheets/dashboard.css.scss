@@ -16,6 +16,7 @@ $height-per-hour: 20px;
 
 .week-container {
 	min-width: $min-width;
+	margin-top: 20px;
 }
 
 .week-row {
@@ -34,7 +35,7 @@ $height-per-hour: 20px;
 .week-day-header {
 	font-weight: bold;
 	text-align: center;
-	border-bottom: 1px solid #C3435C;
+	border-bottom: 2px solid #C3435C;
 	padding-bottom: 4px;
 	margin-bottom: $height-per-hour;
 
