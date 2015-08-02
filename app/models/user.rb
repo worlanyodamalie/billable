@@ -14,8 +14,16 @@ class User < ActiveRecord::Base
 
 	public
 
+		def all_clients_of_user
+			return self.clients
+		end
+
 		def all_projects_of_user
 			return self.projects
+		end
+
+		def all_worksessions_of_user
+			return self.work_sessions
 		end
 
 	private

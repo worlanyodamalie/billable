@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726124839) do
+ActiveRecord::Schema.define(version: 20150731134723) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150726124839) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "activity"
   end
 
   add_index "work_sessions", ["project_id"], name: "index_work_sessions_on_project_id"

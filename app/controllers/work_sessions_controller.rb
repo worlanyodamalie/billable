@@ -69,6 +69,6 @@ class WorkSessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_session_params
-      params.require(:work_session).permit(:start, :end, :project_id)
+      params.require(:work_session).permit(:start, :end, :activity, :project_id)
     end
 end

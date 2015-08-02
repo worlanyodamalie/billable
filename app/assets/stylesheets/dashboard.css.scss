@@ -4,6 +4,10 @@
 $number-of-days: 7;
 $min-width: 320px;
 $column-width: percentage(1/$number-of-days);
+$number-of-hours: 12;
+$start-of-day: 8;
+$end-of-day: $start-of-day + $number-of-hours;
+$height-per-hour: 20px;
 
 .week-row:before {
 	display: table;
@@ -32,35 +36,42 @@ $column-width: percentage(1/$number-of-days);
 	text-align: center;
 	border-bottom: 1px solid #C3435C;
 	padding-bottom: 4px;
-	margin-bottom: 8px;
+	margin-bottom: $height-per-hour;
 
 	.week-day-date {
 		display: block;
 		font-size: 0.8em;
 		font-weight: lighter;
 		text-align: center;
-		color: #e1e1e1;
+		color: #a1a1a1;
 	}
 }
 
-$number-of-hours: 12;
-$start-of-day: 8;
-$end-of-day: $start-of-day + $number-of-hours;
-$height-per-hour: 20px;
+.week-day-today {
+	background-color: lighten(#C3435C, 45%);
+}
 
 .week-day {
 	min-height: ($number-of-hours * $height-per-hour);
 
+	background: url('dashboard_calendar_background.png') repeat;
+
 	.week-day-session {
-		background: #157999;
-		color: #fff;
-		border-radius: 3px;
 		display: block;
+		background: #ececec;
+		border-top: 5px solid #157999;
+		color: #000;
+		border-radius: 3px;
 		position: relative;
-		font-size: 0.7em;
+		font-size: 0.8em;
 
 		padding: 3px;
 		overflow: hidden;
+
+		&:hover {
+			background: lighten(#157999, 10%);
+			color: #fff !important;
+		}
 
 		span {
 			display: block;
@@ -69,28 +80,34 @@ $height-per-hour: 20px;
 			font-weight: bold;
 			padding-bottom: 1px;
 			margin-bottom: 2px;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+			border-bottom: 1px solid rgba(#157999, 0.7);
 
 			.week-session-details {
 				float: right;
 				font-style: italic;
 				margin: 0 3px;
 				font-family: serif;
+				text-align: center;
+
+				height: 13px; width: 13px;
+				background: #fff;
+				border-radius: 50%;
+				font-size: 0.9em;
 
 				a {
 					&, &:link, &:visited {
-						color: #fff;
+						color: #99f;
 						text-decoration: none;
 					}
 					&:active, &:hover {
-						color: #aaf;
+						color: #ccf;
 						text-decoration: none;
 					}
 				}
 			}
 		}
 		.week-session-client {
-			display: inline-block;
+			display: block;
 			font-weight: bold;
 			font-size: 0.8em;
 
@@ -98,22 +115,24 @@ $height-per-hour: 20px;
 			}
 		}
 		.week-session-project {
-			display: inline-block;
+			display: block;
 			font-size: 0.8em;
 		}
 		.week-session-duration {
-			color: rgba(255, 255, 255, 0.7);
+			color: rgba(0, 0, 0, 0.7);
 			width: 100%;
 			text-align: right;
 			font-size: 0.8em;
+			position: absolute;
+			bottom: 5px; right: 5px;
 		}
 	}
 
 	@for $i from $start-of-day through $end-of-day {
 		.week-session-start-#{$i} { margin-top: (($i - $start-of-day)*$height-per-hour); }
 	}
-	@for $i from 1 through $number-of-hours {
-		.week-session-length-#{i} { height: $i * $height-per-hour; }
+	@for $j from 1 through $number-of-hours {
+		.week-session-length-#{$j} { height: ($j * $height-per-hour); }
 	}
 
 }
